@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -33,7 +34,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> loadAllEmployees() {
+    public List<Employee> loadAllEmployees() throws SQLException {
         List<Employee> employeeList;
 
         try(Connection conn = DriverManager.getConnection(URL,user,password)){
@@ -63,11 +64,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Employee findEmployeeByID(long id) {
+    public Employee findEmployeeByID(long id) throws SQLException {
         Employee empl = null;
         try(Connection conn = DriverManager.getConnection(URL,user,password)){
-            PreparedStatement preparedStatement = conn.prepareStatement("" +
-                    "SELECT * FROM employees WHERE id = ?;");
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM employees WHERE id = ?;");
            preparedStatement.setLong(1, id);
 
 
@@ -90,5 +90,69 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             throw  new RuntimeException(e);
         }
         return empl;
+    }
+
+    @Override
+    public List<Employee> findEmployeeByName(String name) throws SQLException  {
+        List<Employee> employeeArrays = new ArrayList<>();
+        Employee empl = null;
+        try(Connection conn = DriverManager.getConnection(URL,user,password)){
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM employees WHERE first_name = ?;");
+            preparedStatement.setString(1, name);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Long idDB = resultSet.getLong(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                EmployeeFunction  employeeFunction = EmployeeFunction.valueOf(resultSet.getString(4));
+                double salary = resultSet.getDouble(5);
+
+                empl = new Employee(idDB,firstName, lastName, employeeFunction, salary);
+                employeeArrays.add(empl);
+
+            }
+
+            preparedStatement.close();
+        } catch (SQLException e){
+            throw  new RuntimeException(e);
+        }
+        return employeeArrays;
+    }
+
+    @Override
+    public void deleteEmployeeByID(long id) {
+        try(Connection conn = DriverManager.getConnection(URL,user,password)){
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM employees WHERE id = ?;");
+            preparedStatement.setLong(1, id);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+
+        try(Connection conn = DriverManager.getConnection(URL,user,password)){
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("UPDATE employees SET first_name = ?, last_name = ?, employee_Function = ?, salary = ? WHERE id = ?");
+            preparedStatement.setString(1,employee.getFirstName());
+            preparedStatement.setString(2, employee.getLastName());
+            preparedStatement.setString(3, String.valueOf(employee.getEmployeeFunction()));
+            preparedStatement.setDouble(4, employee.getSalary());
+            preparedStatement.setLong(5, employee.getId());
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

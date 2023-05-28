@@ -3,10 +3,7 @@ package com.project.L41.controller.employeeController;
 import com.project.L41.model.employeeModel.Employee;
 import com.project.L41.service.employeeService.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,21 @@ public class EmployeeControler {
     @GetMapping("/employee/all")
     List<Employee> getAllEmployee(){
         return employeeService.getAllEmployees();
+    }
+    @GetMapping("/employee/id/{id}")
+    Employee getEmployeeByID(@PathVariable Long id ){
+        return employeeService.getEmployeeByID(id);
+    }
+    @GetMapping("/employee/name/{name}")
+    List<Employee> getEmployeeByName(@PathVariable String name){
+        return employeeService.findEmployeeByName(name);
+    }
+    @DeleteMapping("/employee/id/{id}")
+    void deleteEmployeeByID(@PathVariable Long id){
+        employeeService.deleteEmployeeByID(id);
+    }
+    @PutMapping("/employee/update")
+    void updateEmployee(@RequestBody Employee employee) {
+        employeeService.updateEmployee(employee);
     }
 }

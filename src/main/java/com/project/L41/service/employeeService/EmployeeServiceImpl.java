@@ -45,6 +45,42 @@ public class EmployeeServiceImpl implements EmployeeService {
         } catch ( SQLException e ){
             e.printStackTrace();
         }
-        return null;
+        return employee;
+    }
+
+    @Override
+    public List<Employee> findEmployeeByName(String name) {
+        System.out.println("find employee bu name");
+        List<Employee> employees = new ArrayList<>();
+        Employee employee = null;
+        try {
+            employees = employeeRepository.findEmployeeByName(name);
+
+        } catch ( SQLException e ){
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+    @Override
+    public void deleteEmployeeByID(long id) {
+        System.out.println("delete employee by id");
+        try {
+            employeeRepository.deleteEmployeeByID(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        System.out.println("update employee");
+        try {
+            employeeRepository.updateEmployee(employee);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

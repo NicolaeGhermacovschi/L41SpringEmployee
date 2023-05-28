@@ -11,4 +11,9 @@ public interface EmployeeRepository {
 
     Employee findEmployeeByID(long id) throws SQLException;
 
+    List<Employee> findEmployeeByName(String firstName) throws SQLException;
+    void deleteEmployeeByID(long id) throws SQLException ;
+
+    void updateEmployee(Employee employee) throws SQLException ;
+
 }
