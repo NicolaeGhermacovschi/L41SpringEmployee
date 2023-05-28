@@ -1,6 +1,6 @@
 package com.project.L41.model.buyersModel;
 
-public class Buyere {
+public class Buyer {
 
     private long id;
     private String firstName;
@@ -8,17 +8,17 @@ public class Buyere {
     private String address;
     private String phoneNumber;
 
-    public Buyere() {
+    public Buyer() {
     }
 
-    public Buyere(String firstName, String lastName, String address, String phoneNumber) {
+    public Buyer(String firstName, String lastName, String address, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
 
-    public Buyere(long id, String firstName, String lastName, String address, String phoneNumber) {
+    public Buyer(long id, String firstName, String lastName, String address, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,7 +68,7 @@ public class Buyere {
 
     @Override
     public String toString() {
-        return "Buyere{" +
+        return "Buyer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

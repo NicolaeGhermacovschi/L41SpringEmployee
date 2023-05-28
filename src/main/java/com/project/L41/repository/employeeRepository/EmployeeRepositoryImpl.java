@@ -28,7 +28,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             preparedStatement.close();
 
         } catch (SQLException e){
-            throw  new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
