@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class BuyersServiceImpl implements BuyersService{
+public class BuyersServiceImpl implements BuyersService {
     @Autowired
     private BuyersRepository buyersRepository;
+
     @Override
     public void addBuyers(Buyer buyer) {
         System.out.println("Register Buyer");
         try {
             buyersRepository.createBuyer(buyer);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -29,7 +30,7 @@ public class BuyersServiceImpl implements BuyersService{
         List<Buyer> buyerList = new ArrayList<>();
         try {
             buyerList = buyersRepository.loadAllBuyers();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return buyerList;
@@ -41,7 +42,7 @@ public class BuyersServiceImpl implements BuyersService{
         Buyer buyer = null;
         try {
             buyer = buyersRepository.findBuyerByID(id);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return buyer;
@@ -53,7 +54,7 @@ public class BuyersServiceImpl implements BuyersService{
         List<Buyer> buyerList = new ArrayList<>();
         try {
             buyerList = buyersRepository.findBuyerByName(name);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return buyerList;
@@ -64,7 +65,7 @@ public class BuyersServiceImpl implements BuyersService{
         System.out.println("detele buyer by id");
         try {
             buyersRepository.deleteBuyerByID(id);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -76,7 +77,7 @@ public class BuyersServiceImpl implements BuyersService{
         System.out.println("update buyer ");
         try {
             buyersRepository.updateBuyer(buyer);
-        } catch (SQLException e ){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

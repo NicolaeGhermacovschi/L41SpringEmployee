@@ -6,23 +6,56 @@ public class Product {
     private ProductType productType;
     private double price;
     private String barCode;
+    private long idProducer;
+    private long idStore;
+    private long productQuantity;
 
     public Product() {
     }
 
-    public Product(long id, String name, ProductType productType, double price, String barCode) {
+    public Product(long id, String name, ProductType productType, double price, String barCode, long idProducer, long idStore, long productQuantity) {
         this.id = id;
         this.name = name;
         this.productType = productType;
         this.price = price;
         this.barCode = barCode;
+        this.idProducer = idProducer;
+        this.idStore = idStore;
+        this.productQuantity = productQuantity;
     }
 
-    public Product(String name, ProductType productType, double price, String barCode) {
+    public Product(String name, ProductType productType, double price, String barCode, long idProducer, long idStore, long productQuantity) {
         this.name = name;
         this.productType = productType;
         this.price = price;
         this.barCode = barCode;
+        this.idProducer = idProducer;
+        this.idStore = idStore;
+        this.productQuantity = productQuantity;
+    }
+
+    public long getIdStore() {
+        return idStore;
+    }
+
+    public void setIdStore(long idStore) {
+        this.idStore = idStore;
+    }
+
+    public long getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(long productQuantity) {
+        this.productQuantity = productQuantity;
+    }
+
+    public long getIdProducer() {
+        return idProducer;
+    }
+
+    public void setIdProducer(long idProducer) {
+        this.idProducer = idProducer;
     }
 
     public long getId() {
@@ -73,6 +106,7 @@ public class Product {
                 ", productType=" + productType +
                 ", price=" + price +
                 ", barCode='" + barCode + '\'' +
+                ", idProducer=" + idProducer +
                 '}';
     }
 }
